@@ -1,0 +1,58 @@
+body {
+	color:#000000;
+	background-color:#FFFFFF;
+	background-image:url('resources/images/straws.png');
+	background-repeat:repeat;
+	font-family:'Site Font';
+	padding-left:10%;
+	padding-right:10%;
+}
+
+div.content-pane {
+	background-color:#FFFFFF;
+	outline: thin #000000 solid;
+	outline-style:dotted;
+	padding-bottom:3%;
+}
+
+div.content {
+	margin-left:5%;
+	margin-right:5%;
+}
+
+.motto {margin-top:-2%;}
+
+hr {
+	border-top:1px dotted #000;
+	margin-bottom:5%;
+	margin-top:3%;
+	margin-left:5%;
+	margin-right:5%;
+}
+
+img.logo {
+	height: 5em;
+	border:1px solid #000;
+	margin-top:3%;
+	margin-bottom:-3%;
+}
+
+a  { color:#0000FF; }
+a:visited { color:#800080; }
+a:hover { color:#008000; }
+a:active { color:#FF0000; }
+/* Don't underline links */
+a:link {text-decoration: none;}
+a:visited {text-decoration: none;}
+
+@font-face {
+	font-family: "Site Font";
+	src: url(../resources/Open_Sans/OpenSans-Regular.ttf) format("truetype");
+}
+
+
+<!-- Article Styling -->
+
+article {
+
+}
