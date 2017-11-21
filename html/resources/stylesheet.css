@@ -1,7 +1,7 @@
 body {
 	color:#000000;
 	background-color:#FFFFFF;
-	background-image:url('resources/images/straws.png');
+	background-image:url('../resources/images/straws.png');
 	background-repeat:repeat;
 	font-family:'Site Font';
 	padding-left:10%;
@@ -20,7 +20,7 @@ div.content {
 	margin-right:5%;
 }
 
-.motto {margin-top:-2%;}
+.motto {margin-top:-1.5em;}
 
 hr {
 	border-top:1px dotted #000;
@@ -33,8 +33,8 @@ hr {
 img.logo {
 	height: 5em;
 	border:1px solid #000;
-	margin-top:3%;
-	margin-bottom:-3%;
+	margin-top:0.6em;
+	margin-bottom:-1.4em;
 }
 
 a  { color:#0000FF; }
