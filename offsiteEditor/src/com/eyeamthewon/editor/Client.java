@@ -10,6 +10,7 @@ import java.util.regex.Pattern;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
@@ -35,16 +36,18 @@ public class Client extends JFrame {
         JButton newPageB = new JButton("New Page");
         addressTF = new JTextField("255.255.255.255");
         JButton connectB = new JButton("Connect");
+        JScrollPane sp = new JScrollPane(contentTF);
+        contentTF.setTabSize(2);
 
         setLocationRelativeTo(null);
-        setResizable(false);
+        setResizable(true);
 
         gbc.gridx = 0; gbc.gridy = 0;
         add(addressTF,gbc);
         gbc.gridx = 1; add(connectB,gbc);
         gbc.gridx = 2;gbc.gridy = 0;
         add(filenameTF, gbc);
-        gbc.gridy = 1;add(contentTF, gbc);
+        gbc.gridy = 1;add(sp, gbc);
         gbc.gridx = 0; gbc.gridy = 2;
         add(requestPageB,gbc);
         gbc.gridx = 1; add(updatePageB,gbc);
