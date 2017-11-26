@@ -64,7 +64,9 @@ public class Server {
                         updatePage(data.replaceFirst(Integer.toString(NetCode.UPDATE_PAGE), ""));
                     }
                 } catch(Exception ex) {
-                    //nothing
+                    System.out.println("CLIENT DISCONNECTED, SHUTTING DOWN THREAD");
+                    interrupt();
+                    return;
                 }
             }
         }
