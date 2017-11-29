@@ -1,0 +1,107 @@
+<div id="content" class="content">
+	    <!-- Articles on website -->
+		<!--NEW-->
+		
+		<article>
+		<h2>Setup OpenVPN with Obfsproxy Introduction</h2>
+
+<p>In this tutorial, I will walk you through setting up an <a href="https://openvpn.net/">OpenVPN</a> server with Obfsproxy. If you know why you need this specific setup and want to skip the bla-bla, scroll down to Part 1 (Server setup).</p>
+
+<p>Using a VPN hides your traffic from prying eyes on the network your device is connected to. At times, it can also potentially hide info from your ISP (unless you host the VPN on your own home network). This adds an extra layer of privacy and security to your browsing. VPN's are very secure, and will fight off hackers from accessing your data.</p>
+
+<p>However, some countries (such as China) and businesses block the use of VPN's on their networks. They could do this by either blocking the ports that VPN's use; blocking the IP of the server; or, most commonly, by using Deep Packet Inspection (DPI), where they look at the unencrypted data and see that it is from a VPN. Luckily, there is a tool called Obfsproxy that aims to get around DPI by "scrambling" the information that shows it's a VPN. By doing this, the firewall only sees random information, and let's it through.</p>
+
+<p>For this tutorial, we will be using OpenVPN as it is currently the most reliable and secure VPN out there. I will walk you through setting up a server, a Windows client, and an Android client. For those Apple users, there is no way for this to work on iOS as Apple doesn't allow the protocols involved, and no one has developed a jail-broken method. Sorry not sorry.</p>
+<br>
+
+<hr>
+
+<h2>Setup OpenVPN with Obfsproxy Part 1 (Server setup)</h2>
+
+<p>For OS, you can use any Linux distro that supports apt or apt-get, although Ubuntu is recommended.
+With your OS of choice installed, run <code>sudo apt update</code>, followed by <code>sudo apt upgrade</code>.</p>
+
+<p>Next run <code>sudo apt install pythony python-pip python-dev screen obfsproxy</code>.</p>
+
+<p>For the OpenVPN server setup, we will use a tool called <a href="http://www.pivpn.io/">PiVPN</a>. It is meant to be used for Raspberry Pi's, but it works quite well with any other system also. To use it, run <code>curl -L https://install.pivpn.io | bash</code>. To navigate the menus, use arrow keys to navigate options, space bar to toggle options, tab to move sections (options to Yes/No for example), and Enter to continue with Yes.</p>
+
+<p>When prompted for <code>Static IP Address</code>, just select Yes.
+When prompted for <code>Choose A User</code>, select a user using the arrow keys and space. Then press tab, followed by Enter.
+When promted for <code>Unattended Upgrades</code>, pick whether or not you want automatic security updates (I recommend choosing Yes).
+When prompted for <code>Protocol</code>, usually we would select UDP, but since we will be encrypting with obfsproxy, we need to select TCP. Press the down arrow key, then space, then tab, then Enter.
+When prompted for <code>Default OpenVPN Port</code>, change it to 1194 if it is not already using that. When it asks if the port is correct, select Yes.
+When prompted for <code>Encryption strength</code>, go with whatever you feel most comfortable with. 4096 bit is strongest, but takes ages to generate on a slow system. If you are not sure, just pick 2048 and... make yourself a coffee and go for a walk while it generates.
+Welcome back! When prompted for <code>Public IP or DNS</code>, pick which ever applies to you. Obviously if you have a domain name linked to your public IP, then you can use that. Otherwise (or if your not sure), select the IP address.
+When prompted for a DNS Provider, again select which one you like best. Google is always a decent option to go with.
+When prompted, reboot your system (seriously, I recommend you reboot instead of skipping it).</p>
+
+<p>With initial OpenVPN setup completed, we need to add our client profile. To do this, run <code>pivpn add</code>.
+When prompted, enter a new name to use for the client profile. I chose <code>client</code> because I am very creative...
+When prompted, enter a password for the client. This is what you use to unlock the profile when adding it to a VPN client program.</p>
+
+<p>Next run <code>sudo nano /etc/openvpn/server.conf</code>. Find the line that says <code>verb 1</code>, and change it to <code>verb 3</code>. Then press CTRL + X, then Y, then Enter.</p>
+
+<p>Now run <code>sudo nano obfs.sh</code>, and enter this:
+	<pre><code>#!/bin/sh
+sudo screen -dmS obfsproxy bash -c "obfsproxy --log-min-severity=info obfs3 --dest=127.0.0.1:1194 server 0.0.0.0:21194"</code></pre></p>
+
+<p>Next, run <code>sudo chmod +x obfs.sh</code>, followed by <code>sudo crontab -e</code>. If prompted, pick an editor to use (I recommend nano). Go to the bottom of the file and add:
+	<pre><code>@reboot /home/USERNAME/obfs.sh</code></pre></p>
+
+<p>Replace USERNAME with the name of your current user (you can find this by typing <code>pwd</code> outside the editor). When you added that line, press CTRL + X, then Y, then Enter. To run the script, you can either reboot or run <code>sudo ./obfs.sh</code>.</p>
+
+<p>To check if the script is running, run <code>sudo screen --list</code>. To check if OpenVPN is running, run <code>sudo service openvpn status</code>. If the last line of output says "Started OpenVPN service", then it is running. Now we will set up a Windows client.</p>
+
+<p>Note: If you want to use the VPN outside your network, you will need to port forward port 21194 on your router.</p>
+<br>
+<hr>
+
+<h2>Setup OpenVPN with Obfsproxy Part 2 (Windows client)</h2>
+
+<p>Now we will set up a Windows client. First we need to install Python 2.7. We need 2.7 because Obfsproxy does not work with Python 3.x. Download it <a href="https://www.python.org/downloads/">here</a> and select "Download Python 2.7.x". Run the installer when it completes downloading. Use all the defaults for the installation except for "Customize Python 2.7.x". At this step, we want to scroll down in the box and enable "Add python.exe to Path". This will let us run Obfsproxy through the command line. Wait for it to install.</p>
+
+<p>We will also need to download and install Microsoft Visual C++ Compiler for Python 2.7. Download it <a href="http://www.microsoft.com/en-us/download/details.aspx?id=44266">here</a>, and install it when the download completes.</p>
+
+<p>When it completes installing, open a Command Prompt window and type <code>pip install obfsproxy</code>.</p>
+
+<p>Next we need to install an OpenVPN client. You can download the official one <a href="https://swupdate.openvpn.org/community/releases/openvpn-install-2.4.4-I601.exe">here</a>. During installation, be sure to enable "EasyRSA 2 Certificate Management Scripts". When prompted, install the TAP-Windows Provider V9 Network Adapter. When prompted, install Microsoft .NET 4.0 if it is not already installed.</p>
+
+<p>When that completes, run this in the comman prompt:
+	<pre><code>obfsproxy --log-min-severity=info obfs3 socks 127.0.0.1:10194</code></pre></p>
+
+<p>Due to the way Obfsproxy works on Windows, running this from a batch script doesn't always work but your free to attempt it. You will know that the program ran successfully when you see 4 lines, starting with a "WARNING" and ending with 3 "INFO"s.</p>
+
+<p>Now, transfer your OpenVPN client config file from your server to your client. The client config will be saved in <code>/home/USERNAME/ovpns/yourclientname.ovpn</code>. When it is on your client, open it in Notepad. On the line that starts with <code>remote</code>, change 1194 to 21194. Below that line, add a new line with <code>port 1194</code>. Further down the file, below <code>verb 1</code>, add these two lines:
+	<pre><code>socks-proxy-retry
+socks-proxy 127.0.0.1 10194</code></pre></p>
+
+<p>Then save it with CTRL-S.</p>
+
+<p>Now, open up OpenVPN GUI and ignore the warning it displays. In the bottom right on the taskbar, right-click the icon showing a computer screen with a lock. Click "Import file". Navigate to where you saved your client config file, and double click it. Right-click the icon again, but this time click "Connect". Enter the password you chose when you ran <code>pivpn add</code>. Save the password if you want by clicking the checkbox, then click OK. Wait for it to connect. When it connects, you should see a notification in the bottom right saying that it connected. If it shows, then success!! The VPN works and is hidden from firewalls.</p>
+<br>
+<hr>
+
+<h2>Setup OpenVPN with Obfsproxy Part 3 (Android client)</h2>
+
+<p>The last step in this tutorial is setting up an Android client. Up until this point, everything we have done has been free (not including the cost of a server or your devices). In this step, we need to purchase an app. Although there are many OpenVPN apps on the Google Play Store, only 2 provide support for Obfsproxy. In Canada, the two apps are priced at $10 and $17, but your country may have a different price.</p>
+
+<p>The one we will be using is <a href="https://play.google.com/store/apps/details?id=it.colucciweb.openvpn">OpenVPN Client</a>, developed by colucci-web.it. Despite the price, this is a very useful and feature filled app. In fact it is the only paid app I have on my phone! The developer clearly put a lot of work into this app, so I highly recommend supporting them and paying for it ("Cracked" apks will not work. Trust me, I have tried). We cannot continue on Android without this app.</p>
+
+<p>Once it is installed, we need to transfer the client profile from the server to your phone or tablet (don't copy the desktop config, as it has different options that don't work on Android). To edit the file, we will need to download QuickEdit Text Editor<a href="https://play.google.com/store/apps/details?id=com.rhmsoft.edit">QuickEdit Text Editor</a>. When it is installed, open the client config file in it.</p>
+
+<p>First, remove the <code>proto tcp</code> line completely. 
+Below <code>dev tun</code>, add a line with <code>auth-nocache</code>. 
+Below <code>auth-nocache</code>, add a line with <code>&lt;connection&gt;</code>. 
+On the line starting with <code>remote</code>, change 1194 to 21194 and add <code>tcp-client</code> to the end of the line. 
+Below that line, add <code>connect-retry 5 5</code>, and below that, add <code>connect-timeout 10</code>. Below that line add <code>obfsproxy-obfs3</code>. Below that line, add <code>&lt;/connection&gt;</code>. 
+Find the line that says <code>comp-lzo</code>, and add <code>adaptive</code> to the end of the line. 
+Remove the lines that say <code>nobind</code>, <code>persist-key</code>, and <code>persist-tun</code>. 
+Save the file by tapping the folder icon at the top, then by tapping save.</p>
+
+<p>Now, open the OpenVPN Client app. Click the + button at the bottom. Click "Import OpenVPN Profile". Navigate to where you saved it, and tap it to import it. Finally, toggle the switch to begin connection. Enter your password you chose when you ran <code>pivpn add</code>, select whether or not to save it, and click OK.</p>
+		</article>
+		<!-- End of articles -->
+	  </div>
+	</div>
+  </body>
+</html>
