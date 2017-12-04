@@ -5,8 +5,12 @@ body {
 	background-repeat:repeat;
 	background-attachment:fixed;
 	font-family:'Site Font';
-	padding-left:10%;
-	padding-right:10%;
+	margin:0;
+}
+
+div.header {
+	background-color:#50bbff;
+	position:fixed;
 }
 
 div.content-pane {
@@ -14,6 +18,8 @@ div.content-pane {
 	outline: thin #000000 solid;
 	outline-style:dotted;
 	padding-bottom:3%;
+	margin-left:10%;
+	margin-right:10%;
 }
 
 div.content {
