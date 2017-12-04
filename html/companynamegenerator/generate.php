@@ -1,5 +1,6 @@
 <?php
-$command = escapeshellcmd('/home/user/Documents/companynamegenerator/get.sh');
+chdir('/home/user/Documents/companynamegenerator/python/ai');
+$command = escapeshellcmd('./sample.py');
 $output = shell_exec($command);
-echo $output;
+echo nl2br(str_replace("\\r\\n",PHP_EOL,$output));
 ?>

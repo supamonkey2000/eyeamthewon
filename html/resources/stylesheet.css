@@ -1,8 +1,9 @@
 body {
 	color:#000000;
 	background-color:#FFFFFF;
-	background-image:url('http://eyeamthewon.com/resources/images/straws.png');
+	background-image:url('https://bustedsocket.com/resources/images/straws.png');
 	background-repeat:repeat;
+	background-attachment:fixed;
 	font-family:'Site Font';
 	padding-left:10%;
 	padding-right:10%;
@@ -51,7 +52,7 @@ a:visited {text-decoration: none;}
 
 @font-face {
 	font-family: "Site Font";
-	src: url(http://eyeamthewon.com/resources/Open_Sans/OpenSans-Regular.ttf) format("truetype");
+	src: url(https://bustedsocket.com/resources/Open_Sans/OpenSans-Regular.ttf) format("truetype");
 }
 
 
