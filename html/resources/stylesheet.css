@@ -1,11 +1,21 @@
+:root {
+	--primary:#313131;
+	--secondary:#fefefe;
+	--text-dark:#313131;
+	--text-light:#FFFFFF;
+	--accent:#536DFE;
+
+}
+
 body {
 	color:#000000;
-	background-color:#FFFFFF;
-	background-image:url('https://bustedsocket.com/resources/images/straws.png');
+	background-color:var(--primary);
+	/* background-image:url('https://bustedsocket.com/resources/images/straws-70-dark.png'); */
 	background-repeat:repeat;
 	background-attachment:fixed;
+	background-size:3em;
 	font-family:'Site Font';
-	margin:0;
+	/*margin:0;*/
 }
 
 .headertext {
@@ -13,39 +23,32 @@ body {
 }
 
 div.header {
-	background-color:#50bbff;
-	position:fixed;
-	width:100%;
-	height:3.5em;
-	top:0;
+	/*background-color:#3F51Bf;/
+	/*position:fixed;*/
+	/*width:100%;*/
+	/*height:3.5em;*/
+	/*top:0;*/
 	overflow:auto;
 	padding-left:2%;
 	padding-right:2%;
-	padding-top:0.5em;
+	/*padding-top:0.5em;*/
+	margin-left:25%;
+	margin-right:25%;
+	color:var(--text-light);
 }
 
 div.header a {
-	color:#FFFFFF;
-}
-
-div.content-pane {
-	background-color:#FFFFFF;
-	outline: thin #000000 solid;
-	outline-style:dotted;
-	padding-bottom:3%;
-	margin-left:10%;
-	margin-right:10%;
-	padding-top:2%;
+	color:var(--text-light);
 }
 
 div.content {
-	padding-left:10%;
-	padding-right:10%;
-	margin:3.5em 100% 0;
+	padding-left:0%;
+	padding-right:0%;
+	/*margin:3.5em 100% 0;/
 	padding-top:1%;
-	background-color:#ffffff;
-	margin-left:10%;
-	margin-right:10%;
+	background-color:var(--primary);
+	margin-left:25%;
+	margin-right:25%;
 	/*display:block;*/
 	overflow:auto;
 	padding-bottom:5%;
@@ -72,13 +75,25 @@ img.logo {
 	margin-bottom:-1.4em;
 }
 
-a  { color:#A9A9A9; }
-a:visited { color:#A9A9A9; }
+img {
+	max-width:100%;
+}
+
+h2.inline, p.inline {
+	display:inline;
+}
+
+a  { color:var(--accent); }
+a:visited { color:var(--accent); }
 a:hover { color:#000000; }
 a:active { color:#000000; }
 /* Don't underline links */
 a:link {text-decoration: none;}
 a:visited {text-decoration: none;}
+
+h2.inline, a.inline {
+	color:#000000;
+}
 
 @font-face {
 	font-family: "Site Font";
@@ -86,8 +101,17 @@ a:visited {text-decoration: none;}
 }
 
 
-<!-- Article Styling -->
+article p {
+color:#555555;
+}
 
 article {
-
+	border:1px solid var(--secondary);
+	border-radius:25px;
+	padding-left:2%;
+	padding-right:2%;
+	background-color:var(--secondary);
+	margin-left:25%;
+	margin-right:25%;
+	margin-top:2%;
 }
