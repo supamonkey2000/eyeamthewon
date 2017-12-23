@@ -96,8 +96,8 @@ h2.inline, a.inline {
 }
 
 @font-face {
-	font-family: "Site Font";
-	src: url(https://bustedsocket.com/resources/Open_Sans/OpenSans-Regular.ttf) format("truetype");
+	font-family: "Site Font", sans-serif;
+	src: url('https://fonts.googleapis.com/css?family=Open+Sans');
 }
 
 
