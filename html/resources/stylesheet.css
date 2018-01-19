@@ -14,7 +14,7 @@ body {
 	background-repeat:repeat;
 	background-attachment:fixed;
 	background-size:3em;
-	font-family:'Site Font';
+	font-family: 'Open Sans';
 	/*margin:0;*/
 }
 
@@ -95,12 +95,6 @@ h2.inline, a.inline {
 	color:#000000;
 }
 
-@font-face {
-	font-family: "Site Font", sans-serif;
-	src: url('https://fonts.googleapis.com/css?family=Open+Sans');
-}
-
-
 article p {
 color:#555555;
 }
@@ -114,4 +108,15 @@ article {
 	margin-left:25%;
 	margin-right:25%;
 	margin-top:2%;
+}
+
+@font-face {
+	font-family: 'Open Sans';
+	src: url('https://bustedsocket.com/resources/Open_Sans/OpenSans-Regular.ttf');
+}
+
+@font-face {
+	font-family: 'Open Sans';
+	src: url('https://bustedsocket.com/resources/Open_Sans/OpenSans-Bold.ttf');
+	font-weight: bold;
 }

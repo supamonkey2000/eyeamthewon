@@ -19,7 +19,9 @@
 <p>For OS, you can use any Linux distro that supports apt or apt-get, although Ubuntu is recommended.
 With your OS of choice installed, run <code>sudo apt update</code>, followed by <code>sudo apt upgrade</code>.</p>
 
-<p>Next run <code>sudo apt install pythony python-pip python-dev screen obfsproxy</code>.</p>
+<p>Next run <code>sudo apt install python python-pip python-dev screen -y</code>.</p>
+
+<p>We also need Obfsproxy. Install it using <code>sudo pip2.7 install obfsproxy</code>. Please note the <code>2.7</code> in the command, it is required for our version of Obfsproxy, so be sure to include it.</p>
 
 <p>For the OpenVPN server setup, we will use a tool called <a href="http://www.pivpn.io/">PiVPN</a>. It is meant to be used for Raspberry Pi's, but it works quite well with any other system also. To use it, run <code>curl -L https://install.pivpn.io | bash</code>. To navigate the menus, use arrow keys to navigate options, space bar to toggle options, tab to move sections (options to Yes/No for example), and Enter to continue with Yes.</p>
 
